@@ -60,11 +60,12 @@ async function load() {
   }
 }
 
-document.querySelectorAll("#filter button").forEach((b) => (b.onclick = () => { filter = b.dataset.f; localStorage.setItem("filter", filter); data && render(); }));
-$("prev").onclick = () => { offset--; data && render(); };
-$("next").onclick = () => { offset++; data && render(); };
+document.querySelectorAll("#filter button").forEach((b) => (b.onclick = () => { filter = b.dataset.f; localStorage.setItem("filter", filter); data && render(); window.scrollTo(0, 0); }));
+$("prev").onclick = () => { offset--; data && render(); window.scrollTo(0, 0); };
+$("next").onclick = () => { offset++; data && render(); window.scrollTo(0, 0); };
 $("title").onclick = () => { offset = 0; data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
+
 
 
