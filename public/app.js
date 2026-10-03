@@ -1,7 +1,8 @@
 const $ = (id) => document.getElementById(id);
 let offset = 0;
 let data = null;
-let filter = localStorage.getItem("filter") || "all";
+const FILTERS = ["all", "final", "future"];
+let filter = "all";
 const keep = (e) => filter === "all" || (filter === "final") === (e.state === "post");
 
 function mondayOf(d) {
@@ -19,7 +20,7 @@ function render() {
   const fmt = (d) => d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
   $("range").textContent = `${fmt(start)} \u2013 ${fmt(end)}` + (offset === 0 ? " \u00b7 This week" : "");
 
-  document.querySelectorAll("#filter button").forEach((b) => b.classList.toggle("on", b.dataset.f === filter));
+  $("filter").textContent = "Showing: " + filter[0].toUpperCase() + filter.slice(1) + " (tap to change)";
   const todayKey = dayKey(new Date());
   const html = [];
   for (let i = 0; i < 7; i++) {
@@ -60,12 +61,13 @@ async function load() {
   }
 }
 
-document.querySelectorAll("#filter button").forEach((b) => (b.onclick = () => { filter = b.dataset.f; localStorage.setItem("filter", filter); data && render(); window.scrollTo(0, 0); }));
+$("filter").onclick = () => { filter = FILTERS[(FILTERS.indexOf(filter) + 1) % FILTERS.length]; data && render(); window.scrollTo(0, 0); };
 $("prev").onclick = () => { offset--; data && render(); window.scrollTo(0, 0); };
 $("next").onclick = () => { offset++; data && render(); window.scrollTo(0, 0); };
 $("title").onclick = () => { offset = 0; data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
+
 
 
 
