@@ -13,10 +13,13 @@
 :root{color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:#0f172a;color:#e2e8f0;font:16px -apple-system,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-header{position:sticky;top:0;background:#0f172a;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e293b;z-index:1}
+header{position:sticky;top:0;background:#0f172a;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #1e293b;z-index:1}
 header h1{font-size:17px;margin:0;text-align:center;flex:1}
 header small{display:block;font-weight:400;color:#94a3b8;font-size:12px}
 button{background:#1e293b;color:#e2e8f0;border:0;border-radius:8px;padding:8px 14px;font-size:16px}
+nav{display:flex;gap:6px;width:100%}
+nav button{flex:1;padding:7px 0;font-size:14px}
+nav button.on{background:#fbbf24;color:#0f172a;font-weight:600}
 main{padding:10px 14px 40px}
 .day{margin-top:18px}
 .day h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin:0 0 6px}
@@ -39,10 +42,13 @@ main{padding:10px 14px 40px}
   <button id="prev" aria-label="Previous week">&lsaquo;</button>
   <h1 id="title">EggSport<small id="range"></small></h1>
   <button id="next" aria-label="Next week">&rsaquo;</button>
+  <nav id="filter" aria-label="Filter games"><button data-f="all">All</button><button data-f="final">Final</button><button data-f="future">Future</button></nav>
 </header>
 <main id="main"><p class="empty">Loading&hellip;</p></main>
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 

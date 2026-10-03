@@ -1,6 +1,8 @@
 const $ = (id) => document.getElementById(id);
 let offset = 0;
 let data = null;
+let filter = localStorage.getItem("filter") || "all";
+const keep = (e) => filter === "all" || (filter === "final") === (e.state === "post");
 
 function mondayOf(d) {
   const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -17,12 +19,13 @@ function render() {
   const fmt = (d) => d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
   $("range").textContent = `${fmt(start)} \u2013 ${fmt(end)}` + (offset === 0 ? " \u00b7 This week" : "");
 
+  document.querySelectorAll("#filter button").forEach((b) => b.classList.toggle("on", b.dataset.f === filter));
   const todayKey = dayKey(new Date());
   const html = [];
   for (let i = 0; i < 7; i++) {
     const day = new Date(start); day.setDate(start.getDate() + i);
     const k = dayKey(day);
-    const evs = data.events.filter((e) => dayKey(new Date(e.date)) === k)
+    const evs = data.events.filter(keep).filter((e) => dayKey(new Date(e.date)) === k)
       .sort((a, b) => new Date(a.date) - new Date(b.date));
     if (!evs.length) continue;
     html.push(`<section class="day${k === todayKey ? " today" : ""}"><h2>${day.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "short" })}</h2>`);
@@ -34,7 +37,7 @@ function render() {
     }
     html.push("</section>");
   }
-  $("main").innerHTML = html.join("") || '<p class="empty">No games this week</p>';
+  $("main").innerHTML = html.join("") || `<p class="empty">No ${filter === "all" ? "" : filter + " "}games this week</p>`;
 }
 
 function game(e) {
@@ -57,9 +60,11 @@ async function load() {
   }
 }
 
+document.querySelectorAll("#filter button").forEach((b) => (b.onclick = () => { filter = b.dataset.f; localStorage.setItem("filter", filter); data && render(); }));
 $("prev").onclick = () => { offset--; data && render(); };
 $("next").onclick = () => { offset++; data && render(); };
 $("title").onclick = () => { offset = 0; data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
+
 
