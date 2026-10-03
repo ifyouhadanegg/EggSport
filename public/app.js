@@ -20,7 +20,7 @@ function render() {
   const fmt = (d) => d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
   $("range").textContent = `${fmt(start)} \u2013 ${fmt(end)}` + (offset === 0 ? " \u00b7 This week" : "");
 
-  $("filter").textContent = "Showing: " + filter[0].toUpperCase() + filter.slice(1) + " (tap to change)";
+  $("filter").textContent = filter[0].toUpperCase() + filter.slice(1);
   const todayKey = dayKey(new Date());
   const html = [];
   for (let i = 0; i < 7; i++) {
@@ -67,6 +67,7 @@ $("next").onclick = () => { offset++; data && render(); window.scrollTo(0, 0); }
 $("title").onclick = () => { offset = 0; data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
+
 
 
 
