@@ -93,7 +93,7 @@ function renderDetail() {
 }
 
 function renderAbout() {
-  $("main").innerHTML = `<article class="about"><a class="back" href="/">&#x2190; Back to schedule</a><h2><span class="egg">Egg</span><span class="sport">Sport</span></h2><p class="tagline">All the sportsballs in one place.</p><img src="main.png" alt="EggSport athlete with rugby, basketball, soccer, and football balls"><p>EggSport keeps the schedules for your favorite teams together in one simple, mobile-friendly place. Browse the week ahead, filter by sport or team, and open any game to see its score, status, and venue.</p></article>`;
+  $("main").innerHTML = `<article class="about"><h2><span class="egg">Egg</span><span class="sport">Sport</span></h2><p class="tagline">...all the sportsballs in one place.</p><img src="main.png" alt="EggSport athlete with rugby, basketball, soccer, and football balls"><p>EggSport keeps the schedules for your favorite teams together in one simple, mobile-friendly place. Browse the week ahead, filter by sport or team, and open any game to see its score, status, and venue.</p><a class="about-button" href="/">Back to schedule</a></article>`;
 }
 
 async function load() {
