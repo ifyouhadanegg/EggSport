@@ -5,6 +5,7 @@ const FILTERS = ["all", "final", "future"];
 let filter = "all";
 let sportFilter = localStorage.getItem("eggsport-sport") || "all";
 let teamFilter = localStorage.getItem("eggsport-team") || "all";
+window.setTimeout(() => $("splash").classList.add("hidden"), 5000);
 const keep = (e) => {
   const statusMatch = filter === "all" || (filter === "final") === (e.state === "post");
   const sportMatch = sportFilter === "all" || e.sport === sportFilter;
@@ -106,7 +107,5 @@ $("title").onclick = () => { offset = 0; data && render(); };
 window.onpopstate = () => { data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
-
-
 
 
