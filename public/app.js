@@ -30,7 +30,7 @@ function render() {
   start.setDate(start.getDate() + offset * 7);
   const end = new Date(start); end.setDate(end.getDate() + 6);
   const fmt = (d) => d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
-  $("range").textContent = `${fmt(start)} \u2013 ${fmt(end)}` + (offset === 0 ? " \u00b7 This week" : "");
+  $("range").textContent = `${fmt(start)} \u2013 ${fmt(end)}`;
 
   $("filter").textContent = filter[0].toUpperCase() + filter.slice(1);
   const todayKey = dayKey(new Date());
@@ -110,4 +110,3 @@ $("title").onclick = () => { offset = 0; data && render(); };
 window.onpopstate = () => { data && render(); };
 document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 load();
-
