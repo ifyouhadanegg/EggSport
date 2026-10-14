@@ -25,7 +25,10 @@ const dayKey = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 function render() {
-  if (new URLSearchParams(location.search).has("game")) return renderDetail();
+  const params = new URLSearchParams(location.search);
+  $("controls").hidden = params.has("about") || params.has("game");
+  if (params.has("about")) return renderAbout();
+  if (params.has("game")) return renderDetail();
   const start = mondayOf(new Date());
   start.setDate(start.getDate() + offset * 7);
   const end = new Date(start); end.setDate(end.getDate() + 6);
@@ -87,6 +90,10 @@ function renderDetail() {
   const status = pre ? d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : e.detail || "Final";
   const detailSide = (t) => `<div class="team"><span>${t.logo ? `<img src="${esc(t.logo)}" alt="">` : ""}${esc(t.name)}</span><span class="score">${pre ? "" : esc(t.score ?? "")}</span></div>`;
   $("main").innerHTML = `<article class="detail"><a class="back" href="/">&#x2190; Back to schedule</a><h2>${esc(e.league)}</h2><p class="sub">${d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" })} · ${esc(status)}</p><div class="teams">${detailSide(e.away)}${detailSide(e.home)}</div>${e.venue ? `<p class="sub">Venue: ${esc(e.venue)}</p>` : ""}</article>`;
+}
+
+function renderAbout() {
+  $("main").innerHTML = `<article class="about"><a class="back" href="/">&#x2190; Back to schedule</a><h2><span class="egg">Egg</span><span class="sport">Sport</span></h2><p class="tagline">All the sportsballs in one place.</p><img src="main.png" alt="EggSport athlete with rugby, basketball, soccer, and football balls"><p>EggSport keeps the schedules for your favorite teams together in one simple, mobile-friendly place. Browse the week ahead, filter by sport or team, and open any game to see its score, status, and venue.</p></article>`;
 }
 
 async function load() {

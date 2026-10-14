@@ -23,10 +23,11 @@ html.returning #splash{display:none}
 #app{min-height:100vh}
 header{position:sticky;top:0;background:#061f55;padding:8px 10px;display:grid;grid-template-columns:40px minmax(0,1fr) auto 40px;align-items:center;border-bottom:1px solid #123670;z-index:1}
 .brand{display:flex;align-items:center;justify-content:center;gap:9px;min-width:0}
+.brand a{display:flex;flex:none}
 .brand img{width:62px;height:62px;object-fit:contain}
 header h1{font-size:18px;line-height:1.1;margin:0;text-align:left;white-space:nowrap}
-header h1 .egg{color:#f8fafc}
-header h1 .sport{color:#4ade80}
+.egg{color:#f8fafc}
+.sport{color:#4ade80}
 header small{display:block;font-weight:400;color:#94a3b8;font-size:11px;margin-top:4px}
 button{background:#1e293b;color:#e2e8f0;border:0;border-radius:8px;padding:8px 14px;font-size:16px}
 #filter{padding:6px 9px;font-size:13px;margin:0 4px;background:#fbbf24;color:#0f172a;font-weight:600}
@@ -40,6 +41,11 @@ main{padding:6px 14px 80px;min-height:calc(100vh - 110px)}
 .detail .team span:first-child{display:flex;align-items:center;gap:8px}
 .detail .team img{width:30px;height:30px;object-fit:contain}
 .detail .score{font-size:22px}
+.about{max-width:460px;margin:12px auto;text-align:center}
+.about h2{font-size:28px;margin:10px 0 4px}
+.about .tagline{color:#4ade80;font-weight:600;margin:0 0 14px}
+.about img{display:block;width:min(100%,330px);margin:0 auto 18px}
+.about p{color:#cbd5e1;line-height:1.55;text-align:left}
 .day{margin-top:18px}
 .day h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin:0 0 6px}
 .day.today h2{color:#fbbf24}
@@ -61,11 +67,11 @@ main{padding:6px 14px 80px;min-height:calc(100vh - 110px)}
 <div id="app">
 <header>
   <button id="prev" aria-label="Previous week">&lsaquo;</button>
-  <div class="brand" id="title"><img src="icon.png" alt=""><h1><span class="egg">Egg</span><span class="sport">Sport</span><small id="range"></small></h1></div>
+  <div class="brand"><a href="?about=1" aria-label="About EggSport"><img src="icon.png" alt=""></a><h1 id="title"><span class="egg">Egg</span><span class="sport">Sport</span><small id="range"></small></h1></div>
   <button id="filter" aria-label="Filter games"></button>
   <button id="next" aria-label="Next week">&rsaquo;</button>
 </header>
-<div class="controls">
+<div class="controls" id="controls">
   <select id="sportFilter" aria-label="Filter by sport"></select>
   <select id="teamFilter" aria-label="Filter by team"></select>
 </div>
